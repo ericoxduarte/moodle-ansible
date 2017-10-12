@@ -1,0 +1,9 @@
+---
+# nome do banco de dados da aplicacao
+mysql_db: moodle
+
+# login a ser criado para a aplicacao
+mysql_user: moodle
+  
+# senha a ser atribuida para o login da aplicacao
+mysql_password: masterkey

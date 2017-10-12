@@ -1,0 +1,17 @@
+---
+#Realiza alterações nos arquivos de configuração do Moodle
+- name: Reinicia o Apache
+  service: name=apache2 state=restarted
+
+- name: Renomeia arquivo de configuração
+  command: mv /var/www/moodle/config-dist.php /var/www/moodle/config.php creates=/var/www/moodle/config.php
+
+- name: Atualiza a configuracao do Moodle
+  lineinfile:
+     dest=/var/www/moodle/config.php
+     regexp="{{ item.regexp }}"
+     line="{{ item.line }}"
+  with_items:
+  - {'regexp': "define\\('DB_NAME', '(.)+'\\);", 'line': "define('DB_NAME', '{{wp_mysql_db}}');"}     
+  - {'regexp': "define\\('DB_USER', '(.)+'\\);", 'line': "define('DB_USER', '{{wp_mysql_user}}');"}     
+  - {'regexp': "define\\('DB_PASSWORD', '(.)+'\\);", 'line': "define('DB_PASSWORD', '{{wp_mysql_password}}');"}

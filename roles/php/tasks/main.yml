@@ -1,0 +1,18 @@
+---
+#Realiza instalação de extensões necessárias para a instalação do Moodle
+
+- name: Instala as extensões necessarias
+  apt: name={{ item }} state=present
+  with_items:
+    - php-mcrypt 
+    - php7.0-pspell
+    - php7.0-curl
+    - php7.0-gd
+    - php7.0-intl
+    - php7.0-mysql
+    - php7.0-xml
+    - php7.0-xmlrpc
+    - php7.0-ldap
+    - php7.0-zip 
+    - php7.0-soap
+    - php7.0-mbstring

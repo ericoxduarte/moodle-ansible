@@ -1,0 +1,31 @@
+---
+#Realiza download do moodle, atualiza página Apache, cria diretório moodledata e altera permissão da pasta Moodle
+
+- name: Baixa o Moodle
+  get_url: 
+    url=https://download.moodle.org/stable33/moodle-3.3.tgz
+    dest=/tmp/moodle-3.3.tgz
+    validate_certs=no
+
+- name: Descompacta o Moodle
+  unarchive: src=/tmp/moodle-3.3.tgz dest=/var/www/ copy=no
+
+- name: Atualiza página Apache e o reinicia
+  lineinfile:
+    dest=/etc/apache2/sites-enabled/000-default.conf
+    regexp="(.)+DocumentRoot /var/www/html"
+    line="DocumentRoot /var/www/moodle"
+  notify:
+    - Reinicia o Apache
+
+- name: Cria diretório moodledata
+  file: 
+    path: /var/www/moodledata
+    state: directory
+    mode: 0777
+
+- name: Altera permissão da pasta Moodle
+  file: 
+    path: /var/www/moodle
+    mode: 0777
+    recurse: yes

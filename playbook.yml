@@ -1,0 +1,11 @@
+---
+#Executa as roles nos hosts selecionados
+
+- hosts: Moodle
+  remote_user: root
+  become: yes
+  roles:
+  - server
+  - php
+  - mysql
+  - moodle

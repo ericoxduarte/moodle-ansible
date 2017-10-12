@@ -1,0 +1,22 @@
+---
+#Instala softwares utilizados para o funcionamento do Moodle
+
+- name: Atualiza o cache apt de nosso servidor
+  apt: update_cache=yes cache_valid_time=3600
+ 
+- name: Instala programas necessários
+  apt: name={{ item }} state=present
+  with_items:
+    - apache2
+    - mysql-server
+    - php-mysql
+    - php7.0
+    - libapache2-mod-php7.0
+    - curl
+    - python3-pip
+    - python3-mysqldb
+    - python-mysqldb
+    - graphviz
+    - aspell
+    - ghostscript
+    - clamav
